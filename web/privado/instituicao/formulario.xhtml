@@ -12,7 +12,7 @@
                 <p:growl/>
                 <p:panelGrid columns="2">
                     <f:facet name="header">
-                        <p:outputLabel value="Edição de Instituições"/>
+                        <p:outputLabel value="Edição de Instituicaos"/>
                     </f:facet>
                     <f:facet name="footer">
                         <div align="center">
@@ -32,10 +32,11 @@
                     <p:inputText value="#{controleInstituicao.objeto.nome}" id="txtNome"
                                  size="40" maxlength="40"
                                  placeholder="Obrigatório"/>
-                    <p:outputLabel value="Ano Fundação" for="txtNome"/>
+                    <p:outputLabel value="Ano Fundação" for="txtAnoFundacao"/>
                     <p:inputText value="#{controleInstituicao.objeto.anoFundacao}" id="txtAnoFundacao"
                                  size="40" maxlength="40"
                                  placeholder="Obrigatório"/>
+           
                   
                 </p:panelGrid>
             </h:form>

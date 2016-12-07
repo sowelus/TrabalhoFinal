@@ -2,7 +2,7 @@
 package br.edu.ifsul.converters;
 
 import br.edu.ifsul.jpa.EntityManagerUtil;
-import br.edu.ifsul.modelo.Especialidade;
+import br.edu.ifsul.modelo.Instituicao;
 import java.io.Serializable;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -10,8 +10,8 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
 
-@FacesConverter(value = "converterEspecialidade")
-public class ConverterEspecialidade implements Serializable, Converter {
+@FacesConverter(value = "converterInstituicao")
+public class ConverterInstituicao implements Serializable, Converter {
     // metódo que converte da tela para o objeto
     @Override
     public Object getAsObject(FacesContext fc, UIComponent uic, String string) {
@@ -19,7 +19,7 @@ public class ConverterEspecialidade implements Serializable, Converter {
             return null;
         }
         try {
-            return EntityManagerUtil.getEntityManager().find(Especialidade.class, 
+            return EntityManagerUtil.getEntityManager().find(Instituicao.class, 
                     Integer.parseInt(string));
         } catch (Exception e){
             return null;
@@ -30,7 +30,7 @@ public class ConverterEspecialidade implements Serializable, Converter {
         if (o == null){
             return null;
         }
-        Especialidade obj = (Especialidade) o;
+        Instituicao obj = (Instituicao) o;
         return obj.getId().toString();
     }
 
