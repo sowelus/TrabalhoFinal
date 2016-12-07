@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="titulo">Manutenção de Especialidades</ui:define>
+        <ui:define name="conteudo">
+            <h:form>
+                <p:growl/>
+                <p:commandButton value="Novo" icon="ui-icon-plus"
+                                 action="#{controleEspecialidade.novo()}"
+                                 ajax="false"/>
+                <div align="center">
+                    <p:panelGrid columns="11">
+                        <p:outputLabel value="Ordem: "/>
+                        <p:selectOneMenu value="#{controleEspecialidade.dao.ordem}">
+                            <f:selectItem itemLabel="ID" itemValue="id"/>
+                            <f:selectItem itemLabel="Nome" itemValue="nome"/>                           
+                            <p:ajax update="listagem"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Filtro:"/>
+                        <p:inputText value="#{controleEspecialidade.dao.filtro}" size="15">
+                            <p:ajax update="listagem" event="keyup"/>
+                        </p:inputText>
+                        <p:commandButton value="Filtrar" update="listagem"/>
+                        <p:outputLabel value="Máximo Objetos"/>
+                        <p:inputNumber value="#{controleEspecialidade.dao.maximoObjetos}"
+                                       decimalPlaces="0" decimalSeparator=""
+                                       thousandSeparator="" size="3"/>
+                        <p:commandButton actionListener="#{controleEspecialidade.dao.primeiro()}"
+                                         icon="ui-icon-seek-first" update="listagem" title="Primeiro"/>
+                        <p:commandButton actionListener="#{controleEspecialidade.dao.anterior()}"
+                                         icon="ui-icon-seek-prev" update="listagem" title="Anterior"/>
+                        <p:commandButton actionListener="#{controleEspecialidade.dao.proximo()}"
+                                         icon="ui-icon-seek-next" update="listagem" title="Próximo"/>
+                        <p:commandButton actionListener="#{controleEspecialidade.dao.ultimo()}"
+                                         icon="ui-icon-seek-end" update="listagem" title="Ultimo"/>
+                    </p:panelGrid>
+                </div>
+                <p:dataTable value="#{controleEspecialidade.dao.listaObjetos}"
+                             var="obj" id="listagem"
+                             emptyMessage="Nenhum registro encontrado">
+                    <f:facet name="footer">
+                        <p:outputLabel value="#{controleEspecialidade.dao.mensagemNavegacao}"/>
+                    </f:facet>
+                    <p:column headerText="ID">
+                        <p:outputLabel value="#{obj.id}"/>
+                    </p:column>
+                    <p:column headerText="Nome">
+                        <p:outputLabel value="#{obj.nome}"/>
+                    </p:column>
+                    <p:column headerText="Ações">
+                        <div align="center">
+                            <p:commandButton action="#{controleEspecialidade.editar(obj.id)}"
+                                             icon="ui-icon-pencil" title="Editar"
+                                             ajax="false"/>
+                            <p:commandButton actionListener="#{controleEspecialidade.remover(obj.id)}"
+                                             icon="ui-icon-trash" title="Remover"
+                                             update="@form"
+                                             onclick="if (!confirm('Confirma a remoção')) return false"/>
+                        </div>
+                    </p:column>
+                </p:dataTable>
+                             
+            </h:form>            
+        </ui:define>
+    </ui:composition>
+</html>
+
